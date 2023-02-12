@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     {
         shootInput = Input.GetAxis("Fire1");
 
-        if (shootInput != 0 && shootTimer < Time.time)
+        if (shootInput != 0 && shootTimer <= Time.time)
         {
             shootTimer = Time.time + shootCooldown;
             Ray ray = new Ray(muzzlePoint.position, transform.TransformDirection(Vector3.forward));
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, shootMaxRange))
             {
-                Destroy(Instantiate(hitEffect, hit.transform.position, Quaternion.identity), 0.5f);               
+                Destroy(Instantiate(hitEffect, hit.point, Quaternion.identity), 0.5f);               
                 Debug.DrawRay(muzzlePoint.position, transform.TransformDirection(Vector3.forward));
                 if (hit.collider.tag == "Enemy")
                 {
