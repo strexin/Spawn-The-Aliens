@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Player : MonoBehaviour
 {
@@ -36,13 +38,15 @@ public class Player : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private GameObject muzzleFlash;
-    [SerializeField] private GameObject hitEffect;
+    [SerializeField] private HitEffect hitEffect;
+    private IObjectPool<HitEffect> hitPool;
+    private Vector3 hitPos;
 
     private void Awake()
     {
+        hitPool = new ObjectPool<HitEffect>(CreateHitEffect, OnGet, OnRelease, OnDestroyClone, maxSize:20);
         rb = GetComponent<Rigidbody>();
         cam = Camera.main;
-
     }
 
     // Start is called before the first frame update
@@ -68,21 +72,7 @@ public class Player : MonoBehaviour
         if (shootInput != 0 && shootTimer <= Time.time)
         {
             shootTimer = Time.time + shootCooldown;
-            Ray ray = new Ray(muzzlePoint.position, transform.TransformDirection(Vector3.forward));
-            RaycastHit hit;
-            muzzleFlash.SetActive(true);
-            soldierAnim.SetBool("Shoot", true);
-
-            if (Physics.Raycast(ray, out hit, shootMaxRange))
-            {
-                Destroy(Instantiate(hitEffect, hit.point, Quaternion.identity), 0.5f);               
-                Debug.DrawRay(muzzlePoint.position, transform.TransformDirection(Vector3.forward));
-                if (hit.collider.tag == "Enemy")
-                {
-                    enemy = hit.collider.gameObject;
-                    enemy.GetComponent<Enemy>().GetHit(weapon1Damage);
-                }
-            }
+            CreateRayToShoot();
         }
         else
         {
@@ -90,6 +80,49 @@ public class Player : MonoBehaviour
             soldierAnim.SetBool("Shoot", false);
         }
     }
+
+    private void CreateRayToShoot()
+    {
+        Ray ray = new Ray(muzzlePoint.position, transform.TransformDirection(Vector3.forward));
+        RaycastHit hit;
+        muzzleFlash.SetActive(true);
+        soldierAnim.SetBool("Shoot", true);
+
+        if (Physics.Raycast(ray, out hit, shootMaxRange))
+        {
+            hitPos = hit.point;
+            hitPool.Get();
+            if (hit.collider.tag == "Enemy")
+            {
+                enemy = hit.collider.gameObject;
+                enemy.GetComponent<Enemy>().GetHit(weapon1Damage);
+            }
+        }
+    }
+
+    #region Hit Effect Pooling
+    private HitEffect CreateHitEffect()
+    {
+        HitEffect effect = Instantiate(hitEffect);
+        effect.SetPool(hitPool);
+        return effect;
+    }
+    private void OnGet(HitEffect effect)
+    {
+        effect.gameObject.SetActive(true);
+        effect.transform.position = hitPos;
+    }
+
+    private void OnRelease(HitEffect effect)
+    {
+        effect.gameObject.SetActive(false);
+    }
+
+    private void OnDestroyClone(HitEffect effect)
+    {
+        Destroy(effect.gameObject);
+    }
+    #endregion
 
     private void PlayerLookAt()
     {
@@ -106,7 +139,7 @@ public class Player : MonoBehaviour
         if (lookPos != Vector3.zero)
         {
             transform.LookAt(transform.position + lookPos, Vector3.up);
-        }        
+        }
     }
 
     private void InputHandler()

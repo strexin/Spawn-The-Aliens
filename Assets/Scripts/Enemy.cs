@@ -6,25 +6,33 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     NavMeshAgent navMeshAgent;
+    GameObject player;
+    Rigidbody rb;
 
+    [Header("Enemy Attributes")]
     [SerializeField] EnemyScriptableObj enemyProfile;
-    [SerializeField] Player player;
     [SerializeField] Animator enemyAnimator;
-
     float enemyCurrentHealth;
     public float enemyDamage;
 
-    bool isAlive;
+    [Header("Status")]
     public bool isMoving;
     public bool isAttacking;
+    bool isAlive;
+    
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         enemyCurrentHealth = enemyProfile.enemyMaxHealth;
         isMoving = true;
-        isAlive = true;
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        isAlive = true;       
         Debug.Log(enemyProfile.enemyMaxHealth);
     }
 
@@ -61,7 +69,8 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        rb.velocity = Vector3.zero;
         isAlive = false;
-        enemyAnimator.SetBool("Dead", true);        
+        enemyAnimator.SetTrigger("Dead");        
     }
 }
