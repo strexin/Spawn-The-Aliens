@@ -11,24 +11,30 @@ public class Player : MonoBehaviour
     Camera cam;
     Vector3 lookTarget;
 
-    [Header("Player Attribute")]
+    [Header("References")]
+    [SerializeField] Enemy enemy;
+
+    [Header("Player Attributes")]
     [SerializeField] float playerMaxHealth;
     [SerializeField] float playerCurrentHealth;
     [SerializeField] float playerMoveSpeed;
     [SerializeField] Animator soldierAnim;
-
     Rigidbody rb;
 
-    [Header("Weapon Attribut")]
+    [Header("Weapon 1 Attributes")]
+    [SerializeField] float weapon1Damage;
     [SerializeField] float shootCooldown;
     float shootTimer;
     [SerializeField] Transform muzzlePoint;
     [SerializeField] float shootMaxRange;
 
+    [Header("Weapon 2 Attribues")]
+    [SerializeField] float weapon2Damage;
+
     [Header("Status")]
     bool isMoving;
 
-    [Header("Effect")]
+    [Header("Effects")]
     [SerializeField] private GameObject muzzleFlash;
     [SerializeField] private GameObject hitEffect;
 
@@ -73,7 +79,7 @@ public class Player : MonoBehaviour
                 if (hit.collider.tag == "Enemy")
                 {
                     Debug.Log("Hit");
-                    //Decrease enemy health
+                    enemy.GetHit(weapon1Damage);
                 }
             }
         }
@@ -96,7 +102,10 @@ public class Player : MonoBehaviour
 
         var lookPos = lookTarget - transform.position;
         lookPos.y = 0.0f;
-        transform.LookAt(transform.position + lookPos, Vector3.up);
+        if (lookPos != Vector3.zero)
+        {
+            transform.LookAt(transform.position + lookPos, Vector3.up);
+        }        
     }
 
     private void InputHandler()
