@@ -10,9 +10,9 @@ public class Player : MonoBehaviour
 
     Camera cam;
     Vector3 lookTarget;
+    GameObject enemy;
 
     [Header("References")]
-    [SerializeField] Enemy enemy;
 
     [Header("Player Attributes")]
     [SerializeField] float playerMaxHealth;
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerCurrentHealth = playerMaxHealth;
         shootTimer = 0;
         isMoving = false;
     }
@@ -78,8 +79,8 @@ public class Player : MonoBehaviour
                 Debug.DrawRay(muzzlePoint.position, transform.TransformDirection(Vector3.forward));
                 if (hit.collider.tag == "Enemy")
                 {
-                    Debug.Log("Hit");
-                    enemy.GetHit(weapon1Damage);
+                    enemy = hit.collider.gameObject;
+                    enemy.GetComponent<Enemy>().GetHit(weapon1Damage);
                 }
             }
         }
@@ -134,5 +135,19 @@ public class Player : MonoBehaviour
             Vector3 movement = new Vector3(horizontalMoveInput, 0.0f, verticalMoveInput);
             rb.velocity = movement * playerMoveSpeed;
         }
+    }
+
+    public void GetHit(float damage)
+    {
+        playerCurrentHealth -= damage;
+        if (playerCurrentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Player Dead");
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAnimation : MonoBehaviour
 {
     [SerializeField] Enemy enemy;
+    [SerializeField] GameObject enemyAttackPoint;
 
     public void DestoyObject()
     {
@@ -13,11 +14,12 @@ public class EnemyAnimation : MonoBehaviour
 
     void EnemyAttacking()
     {
-        Debug.Log("Player Hit");
+        enemyAttackPoint.SetActive(true);       
     }
 
     void EnemyAttackingEnd()
     {
+        enemyAttackPoint.SetActive(false);
         enemy.isMoving = true;
         enemy.isAttacking = false;
     }

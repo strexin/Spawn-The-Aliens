@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] Animator enemyAnimator;
 
     float enemyCurrentHealth;
+    public float enemyDamage;
 
     bool isAlive;
     public bool isMoving;
