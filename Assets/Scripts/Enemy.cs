@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
 public class Enemy : MonoBehaviour
 {
@@ -33,7 +34,6 @@ public class Enemy : MonoBehaviour
         enemyCurrentHealth = enemyProfile.enemyMaxHealth;
         isMoving = true;
         isAlive = true;       
-        Debug.Log(enemyProfile.enemyMaxHealth);
     }
 
     // Update is called once per frame
