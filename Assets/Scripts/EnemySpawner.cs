@@ -33,7 +33,9 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemy[0], RandomPos(), Quaternion.identity);
+        int enemyType = Random.Range(0, 2);
+        Debug.Log(enemyType);
+        Instantiate(enemy[enemyType], RandomPos(), Quaternion.identity);
     }
 
     Vector3 RandomPos()

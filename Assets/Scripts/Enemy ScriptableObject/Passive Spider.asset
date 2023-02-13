@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c8d76a638657e64a8f31bdbd1cc97d3, type: 3}
-  m_Name: Green Alien
+  m_Name: Passive Spider
   m_EditorClassIdentifier: 
-  enemyMaxHealth: 100
-  enemyAttack: 12
+  enemyMaxHealth: 150
+  enemyAttack: 14
   isChasingPlayer: 0

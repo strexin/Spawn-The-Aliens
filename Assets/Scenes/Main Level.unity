@@ -223,7 +223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy:
   - {fileID: 4330805734023294449, guid: b9bced21db0359d4987969a1985049b9, type: 3}
-  cooldownSpawn: 6
+  - {fileID: 4330805734023294449, guid: 93b9c52cda2aa124595296c90e3bdcb4, type: 3}
+  cooldownSpawn: 4
   maxPos: 20
 --- !u!4 &107445916
 Transform:
@@ -742,7 +743,7 @@ PrefabInstance:
     - target: {fileID: 4330805734023294453, guid: b9bced21db0359d4987969a1985049b9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 9.45
       objectReference: {fileID: 0}
     - target: {fileID: 4330805734023294453, guid: b9bced21db0359d4987969a1985049b9,
         type: 3}

@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] Animator enemyAnimator;
     float enemyCurrentHealth;
     public float enemyDamage;
+    bool activeEnemy;
+    Vector3 randomDestination;
 
     [Header("Status")]
     public bool isMoving;
@@ -31,7 +33,9 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        activeEnemy = enemyProfile.isChasingPlayer;
         enemyCurrentHealth = enemyProfile.enemyMaxHealth;
+        randomDestination = new Vector3(Random.Range(-20, 20), 0.0f, Random.Range(-20, 20));
         isMoving = true;
         isAlive = true;       
     }
@@ -41,8 +45,15 @@ public class Enemy : MonoBehaviour
     {
         if (isMoving && isAlive && !isAttacking)
         {
-            navMeshAgent.destination = player.transform.position;
-            enemyAnimator.SetFloat("Moving", 1.0f);
+            if (activeEnemy)
+            {
+                navMeshAgent.destination = player.transform.position;
+                enemyAnimator.SetFloat("Moving", 1.0f);
+            } else if (!activeEnemy)
+            {
+                navMeshAgent.destination = randomDestination;
+                enemyAnimator.SetFloat("Moving", 1.0f);
+            }
         }
     }
 
@@ -70,6 +81,7 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         rb.velocity = Vector3.zero;
+        GetComponent<BoxCollider>().enabled = false;
         isAlive = false;
         enemyAnimator.SetTrigger("Dead");        
     }
