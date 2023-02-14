@@ -136,7 +136,8 @@ MonoBehaviour:
   playerMoveSpeed: 5
   soldierAnim: {fileID: 1574126848811194623}
   weapon1Cooldown: 0.1
-  weapon2Cooldown: 0.8
+  weapon2Cooldown: 0.6
+  bulletLeft: 15
   muzzleFlash: {fileID: 1575307588780274926}
 --- !u!114 &1685907529
 MonoBehaviour:
@@ -153,7 +154,7 @@ MonoBehaviour:
   muzzlePoint: {fileID: 1574126848690732932}
   weapon1Damage: 8
   weapon1MaxRange: 30
-  weapon2Damage: 6
+  weapon2Damage: 10
   weapon2MaxRange: 15
   maxBarrels: 3
   barrelsSpreadPos: 0.5

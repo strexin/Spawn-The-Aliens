@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyProfile: {fileID: 11400000, guid: 3fa7030844732144895006bb0b674287, type: 2}
-  enemyAnimator: {fileID: 3126937303222288151}
+  enemyAnimator: {fileID: 8073873874664201579}
   enemyDamage: 20
   isMoving: 0
   isAttacking: 0
@@ -176,6 +176,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sand Spider
       objectReference: {fileID: 0}
+    - target: {fileID: 1997822079751733247, guid: 3af956640595c6e4cb9436f0f4545ffd,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 4330805734023294454}
+    - target: {fileID: 1997822079751733247, guid: 3af956640595c6e4cb9436f0f4545ffd,
+        type: 3}
+      propertyPath: enemyAttackPoint
+      value: 
+      objectReference: {fileID: 462076588130171852}
     - target: {fileID: 2082831617555776721, guid: 3af956640595c6e4cb9436f0f4545ffd,
         type: 3}
       propertyPath: m_RootOrder
@@ -239,43 +249,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6586854667942224508}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5531917418831346711 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1705849404070370923, guid: 3af956640595c6e4cb9436f0f4545ffd,
+--- !u!95 &8073873874664201579 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3126937303222288151, guid: 3af956640595c6e4cb9436f0f4545ffd,
     type: 3}
   m_PrefabInstance: {fileID: 6586854667942224508}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &3126937303222288151
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5531917418831346711}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a1c330f1ec603af4094f640c39f671c0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1997822079751733247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5531917418831346711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409f8fc112c27d94aa68c1ac757fb578, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 4330805734023294454}
-  enemyAttackPoint: {fileID: 462076588130171852}

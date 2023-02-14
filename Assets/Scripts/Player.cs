@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] Weapon weapon;
 
     [Header("Player Attributes")]
-    [SerializeField] float playerMaxHealth;
-    [SerializeField] float playerCurrentHealth;
+    public float playerMaxHealth;
+    public float playerCurrentHealth;
     [SerializeField] float playerMoveSpeed;
     [SerializeField] Animator soldierAnim;
     Rigidbody rb;
@@ -28,9 +28,11 @@ public class Player : MonoBehaviour
 
     [Header("Weapon 2 Attribues")]
     [SerializeField] float weapon2Cooldown;
+    public int bulletLeft;
 
     [Header("Status")]
     bool isMoving;
+    bool isAlive;
     bool weapon1Active;
     bool weapon2Active;
 
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
         playerCurrentHealth = playerMaxHealth;
         shootTimer = 0;
         isMoving = false;
+        isAlive = true;
         weapon1Active = true;
         weapon2Active = false;
     }
@@ -71,7 +74,7 @@ public class Player : MonoBehaviour
         horizontalMoveInput = Input.GetAxis("Horizontal");
         verticalMoveInput = Input.GetAxis("Vertical");
 
-        if (horizontalMoveInput != 0 || verticalMoveInput != 0 && !isMoving)
+        if (horizontalMoveInput != 0 || verticalMoveInput != 0 && !isMoving && isAlive)
         {
             isMoving = true;
         }
@@ -103,9 +106,10 @@ public class Player : MonoBehaviour
                 shootTimer = Time.time + weapon1Cooldown;
                 weapon.NormalWeaponMode();
             } 
-            else if (weapon2Active && !weapon1Active)
+            else if (weapon2Active && !weapon1Active && bulletLeft > 0)
             {
                 shootTimer = Time.time + weapon2Cooldown;
+                bulletLeft -= 1;
                 weapon.SpreadMode();
             }           
         }
@@ -154,6 +158,6 @@ public class Player : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player Dead");
+        isAlive = false;
     }
 }

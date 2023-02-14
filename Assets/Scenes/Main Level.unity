@@ -224,7 +224,7 @@ MonoBehaviour:
   enemy:
   - {fileID: 4330805734023294454, guid: b9bced21db0359d4987969a1985049b9, type: 3}
   - {fileID: 4330805734023294454, guid: 93b9c52cda2aa124595296c90e3bdcb4, type: 3}
-  cooldownSpawn: 30
+  cooldownSpawn: 6
   maxPos: 20
 --- !u!4 &107445916
 Transform:

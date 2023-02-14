@@ -12,11 +12,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] Transform muzzlePoint;
 
     [Header("Weapon 1 Attributes")]
-    [SerializeField] float weapon1Damage;
+    public float weapon1Damage;
     [SerializeField] float weapon1MaxRange;
 
     [Header("Weapon 2 Attributes")]
-    [SerializeField] float weapon2Damage;
+    public float weapon2Damage;
     [SerializeField] float weapon2MaxRange;
     [SerializeField] float maxBarrels;
     [SerializeField] float barrelsSpreadPos;
