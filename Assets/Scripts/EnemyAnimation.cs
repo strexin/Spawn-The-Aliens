@@ -9,7 +9,8 @@ public class EnemyAnimation : MonoBehaviour
 
     public void DestoyObject()
     {
-        Destroy(enemy.gameObject, .8f);
+        enemy.OnDead();
+        //Destroy(enemy.gameObject, .8f);
     }
 
     void EnemyAttacking()

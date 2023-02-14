@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Passive Spider
   m_EditorClassIdentifier: 
   enemyMaxHealth: 150
-  enemyAttack: 14
+  enemyAttack: 30
   isChasingPlayer: 0
