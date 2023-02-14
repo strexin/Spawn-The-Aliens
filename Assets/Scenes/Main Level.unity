@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 2.5
+    agentRadius: 2
     agentHeight: 1
     agentSlope: 10
     agentClimb: 0.1
-    ledgeDropHeight: 2.86
+    ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.8333333
+    cellSize: 0.6666667
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   enemy:
   - {fileID: 4330805734023294454, guid: b9bced21db0359d4987969a1985049b9, type: 3}
   - {fileID: 4330805734023294454, guid: 93b9c52cda2aa124595296c90e3bdcb4, type: 3}
-  cooldownSpawn: 2
+  cooldownSpawn: 30
   maxPos: 20
 --- !u!4 &107445916
 Transform:
@@ -351,7 +351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010653347892, guid: d7ba4fe833670a140b9b6085652f0e26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2777454
+      value: 0.71
       objectReference: {fileID: 0}
     - target: {fileID: 4000010653347892, guid: d7ba4fe833670a140b9b6085652f0e26, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1012,7 +1012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010653347892, guid: d7ba4fe833670a140b9b6085652f0e26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2777454
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 4000010653347892, guid: d7ba4fe833670a140b9b6085652f0e26, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1481,12 +1481,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1574126847834669603, guid: 4d1718299ca549f48a49f5344c8e3da2,
-        type: 3}
-      propertyPath: hitEffect
-      value: 
-      objectReference: {fileID: 7929694970738896182, guid: 643639841fb531e4ba8097fed4eb9ac7,
-        type: 3}
     - target: {fileID: 1574126847834669608, guid: 4d1718299ca549f48a49f5344c8e3da2,
         type: 3}
       propertyPath: m_RootOrder
@@ -1586,7 +1580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010653347892, guid: d7ba4fe833670a140b9b6085652f0e26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2777454
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 4000010653347892, guid: d7ba4fe833670a140b9b6085652f0e26, type: 3}
       propertyPath: m_LocalPosition.z

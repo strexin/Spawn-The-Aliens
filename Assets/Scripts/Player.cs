@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class Player : MonoBehaviour
 {
@@ -12,9 +11,9 @@ public class Player : MonoBehaviour
 
     Camera cam;
     Vector3 lookTarget;
-    GameObject enemy;
 
     [Header("References")]
+    [SerializeField] Weapon weapon;
 
     [Header("Player Attributes")]
     [SerializeField] float playerMaxHealth;
@@ -24,27 +23,22 @@ public class Player : MonoBehaviour
     Rigidbody rb;
 
     [Header("Weapon 1 Attributes")]
-    [SerializeField] float weapon1Damage;
-    [SerializeField] float shootCooldown;
+    [SerializeField] float weapon1Cooldown;
     float shootTimer;
-    [SerializeField] Transform muzzlePoint;
-    [SerializeField] float shootMaxRange;
 
     [Header("Weapon 2 Attribues")]
-    [SerializeField] float weapon2Damage;
+    [SerializeField] float weapon2Cooldown;
 
     [Header("Status")]
     bool isMoving;
+    bool weapon1Active;
+    bool weapon2Active;
 
     [Header("Effects")]
     [SerializeField] private GameObject muzzleFlash;
-    [SerializeField] private HitEffect hitEffect;
-    private IObjectPool<HitEffect> hitPool;
-    private Vector3 hitPos;
 
     private void Awake()
     {
-        hitPool = new ObjectPool<HitEffect>(CreateHitEffect, OnGet, OnRelease, OnDestroyClone, maxSize:20);
         rb = GetComponent<Rigidbody>();
         cam = Camera.main;
     }
@@ -55,6 +49,8 @@ public class Player : MonoBehaviour
         playerCurrentHealth = playerMaxHealth;
         shootTimer = 0;
         isMoving = false;
+        weapon1Active = true;
+        weapon2Active = false;
     }
 
     // Update is called once per frame
@@ -65,14 +61,53 @@ public class Player : MonoBehaviour
         Shoot();
     }
 
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void InputHandler()
+    {
+        horizontalMoveInput = Input.GetAxis("Horizontal");
+        verticalMoveInput = Input.GetAxis("Vertical");
+
+        if (horizontalMoveInput != 0 || verticalMoveInput != 0 && !isMoving)
+        {
+            isMoving = true;
+        }
+        else isMoving = false;
+
+        soldierAnim.SetFloat("Walking", Mathf.Abs(horizontalMoveInput) + Mathf.Abs(verticalMoveInput));
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && weapon2Active)
+        {
+            weapon1Active = true;
+            weapon2Active = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && weapon1Active)
+        {
+            weapon1Active = false;
+            weapon2Active = true;
+        }
+    }
+
     private void Shoot()
     {
         shootInput = Input.GetAxis("Fire1");
 
         if (shootInput != 0 && shootTimer <= Time.time)
         {
-            shootTimer = Time.time + shootCooldown;
-            CreateRayToShoot();
+            soldierAnim.SetBool("Shoot", true);
+            if (weapon1Active && !weapon2Active)
+            {
+                shootTimer = Time.time + weapon1Cooldown;
+                weapon.NormalWeaponMode();
+            } 
+            else if (weapon2Active && !weapon1Active)
+            {
+                shootTimer = Time.time + weapon2Cooldown;
+                weapon.SpreadMode();
+            }           
         }
         else
         {
@@ -80,49 +115,6 @@ public class Player : MonoBehaviour
             soldierAnim.SetBool("Shoot", false);
         }
     }
-
-    private void CreateRayToShoot()
-    {
-        Ray ray = new Ray(muzzlePoint.position, transform.TransformDirection(Vector3.forward));
-        RaycastHit hit;
-        muzzleFlash.SetActive(true);
-        soldierAnim.SetBool("Shoot", true);
-
-        if (Physics.Raycast(ray, out hit, shootMaxRange))
-        {
-            hitPos = hit.point;
-            hitPool.Get();
-            if (hit.collider.tag == "Enemy")
-            {
-                enemy = hit.collider.gameObject;
-                enemy.GetComponent<Enemy>().GetHit(weapon1Damage);
-            }
-        }
-    }
-
-    #region Hit Effect Pooling
-    private HitEffect CreateHitEffect()
-    {
-        HitEffect effect = Instantiate(hitEffect);
-        effect.SetPool(hitPool);
-        return effect;
-    }
-    private void OnGet(HitEffect effect)
-    {
-        effect.gameObject.SetActive(true);
-        effect.transform.position = hitPos;
-    }
-
-    private void OnRelease(HitEffect effect)
-    {
-        effect.gameObject.SetActive(false);
-    }
-
-    private void OnDestroyClone(HitEffect effect)
-    {
-        Destroy(effect.gameObject);
-    }
-    #endregion
 
     private void PlayerLookAt()
     {
@@ -140,25 +132,6 @@ public class Player : MonoBehaviour
         {
             transform.LookAt(transform.position + lookPos, Vector3.up);
         }
-    }
-
-    private void InputHandler()
-    {
-        horizontalMoveInput = Input.GetAxis("Horizontal");
-        verticalMoveInput = Input.GetAxis("Vertical");
-
-        if (horizontalMoveInput != 0 || verticalMoveInput != 0 && !isMoving)
-        {
-            isMoving = true;
-        }
-        else isMoving = false;
-
-        soldierAnim.SetFloat("Walking", Mathf.Abs(horizontalMoveInput) + Mathf.Abs(verticalMoveInput));
-    }
-
-    private void FixedUpdate()
-    {
-        Move();
     }
 
     private void Move()

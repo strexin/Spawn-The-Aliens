@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1574126847834669614}
   - component: {fileID: 1574126847834669615}
   - component: {fileID: 1574126847834669603}
+  - component: {fileID: 1685907529}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -129,17 +130,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c9de9e8908d8b45a767ad0cad2cf00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 1685907529}
   playerMaxHealth: 200
   playerCurrentHealth: 0
   playerMoveSpeed: 5
   soldierAnim: {fileID: 1574126848811194623}
-  weapon1Damage: 5
-  shootCooldown: 0.1
-  muzzlePoint: {fileID: 1574126848690732932}
-  shootMaxRange: 30
-  weapon2Damage: 0
+  weapon1Cooldown: 0.1
+  weapon2Cooldown: 0.8
   muzzleFlash: {fileID: 1575307588780274926}
-  hitEffect: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
+--- !u!114 &1685907529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574126847834669609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5682bb3c9a82c4daf4961c17eb0697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  muzzlePoint: {fileID: 1574126848690732932}
+  weapon1Damage: 8
+  weapon1MaxRange: 30
+  weapon2Damage: 6
+  weapon2MaxRange: 15
+  maxBarrels: 3
+  barrelsSpreadPos: 0.5
+  muzzleFlash: {fileID: 1575307588780274926}
+  hitEffect: {fileID: 7929694970738896182, guid: 643639841fb531e4ba8097fed4eb9ac7,
+    type: 3}
 --- !u!1 &1574126848690732933
 GameObject:
   m_ObjectHideFlags: 0

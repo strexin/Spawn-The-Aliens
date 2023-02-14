@@ -82,9 +82,10 @@ public class Enemy : MonoBehaviour
 
     public void GetHit(float damage)
     {
+        Debug.Log("Hit");
         enemyCurrentHealth -= damage;
 
-        if (enemyCurrentHealth == 0)
+        if (enemyCurrentHealth <= 0)
         {
             Die();
         }
