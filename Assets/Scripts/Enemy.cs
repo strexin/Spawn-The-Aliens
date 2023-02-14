@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     Rigidbody rb;
     IObjectPool<Enemy> enemyPool;
 
+    SoundManager sound;
+
     [Header("Enemy Attributes")]
     [SerializeField] EnemyScriptableObj enemyProfile;
     [SerializeField] Animator enemyAnimator;
@@ -28,6 +30,7 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player");
+        sound = FindObjectOfType<SoundManager>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -95,6 +98,7 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        sound.PlaySound("Enemy Die");
         rb.velocity = Vector3.zero;
         GetComponent<BoxCollider>().enabled = false;
         isAlive = false;

@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
 
     [Header("Reference")]
     [SerializeField] Transform muzzlePoint;
+    SoundManager sound;
 
     [Header("Weapon 1 Attributes")]
     public float weapon1Damage;
@@ -28,6 +29,7 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
+        sound = FindObjectOfType<SoundManager>();
         hitPool = new ObjectPool<HitEffect>(CreateHitEffect, OnGet, OnRelease, OnDestroyClone, maxSize: 20);
     }
 
@@ -60,6 +62,7 @@ public class Weapon : MonoBehaviour
         Ray ray = new Ray(muzzlePoint.position, transform.TransformDirection(Vector3.forward));
         RaycastHit hit;
         muzzleFlash.SetActive(true);
+        sound.PlaySound("Weapon 1");
 
         if (Physics.Raycast(ray, out hit, weapon1MaxRange))
         {
@@ -75,6 +78,7 @@ public class Weapon : MonoBehaviour
 
     public void SpreadMode()
     {
+        sound.PlaySound("Weapon 2");
         for (int i = 1; i <= maxBarrels; i++)
         {
             Ray ray = new Ray(muzzlePoint.position, transform.TransformDirection(new Vector3(RandomBarrelPos(), 0.0f, 1.0f)));

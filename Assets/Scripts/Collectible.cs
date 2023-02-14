@@ -8,17 +8,23 @@ public class Collectible : MonoBehaviour
     [SerializeField] private GameObject health;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject sword;
+    SoundManager sound;
 
     [Header("Increase Attribute")]
     [SerializeField] float addHealth;
     [SerializeField] float addAttack;
     [SerializeField] int addBullet;
 
+    private void Awake()
+    {
+        sound = FindObjectOfType<SoundManager>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Trigger");
+            sound.PlaySound("Collectible");
             Player player = other.gameObject.GetComponent<Player>();
             Weapon weapon = other.gameObject.GetComponent<Weapon>();
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Player : MonoBehaviour
@@ -17,6 +16,7 @@ public class Player : MonoBehaviour
     [Header("References")]
     [SerializeField] Weapon weapon;
     [SerializeField] MainLevelUI levelUI;
+    SoundManager sound;
 
     [Header("Player Attributes")]
     public float playerMaxHealth;
@@ -50,11 +50,14 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cam = Camera.main;
+        sound = FindObjectOfType<SoundManager>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        //sound.StopSound("Theme");
+
         playerCurrentHealth = playerMaxHealth;
         shootTimer = Time.time;
         isMoving = false;
@@ -101,12 +104,14 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && weapon2Active)
         {
+            sound.PlaySound("Change Weapon");
             bulletDisplay.SetText(Mathf.Infinity.ToString());
             weapon1Active = true;
             weapon2Active = false;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) && weapon1Active)
         {
+            sound.PlaySound("Change Weapon");
             bulletDisplay.SetText(bulletLeft.ToString());
             weapon1Active = false;
             weapon2Active = true;
@@ -140,7 +145,10 @@ public class Player : MonoBehaviour
                 bulletLeft -= 1;
                 weapon.SpreadMode();
                 bulletDisplay.SetText(bulletLeft.ToString());
-            }           
+            } else if (bulletLeft <= 0)
+            {
+                sound.PlaySound("No Bullet");
+            }          
         }
         else
         {
@@ -190,6 +198,8 @@ public class Player : MonoBehaviour
     void Die()
     {
         isAlive = false;
+        sound.PlaySound("Game Over");
+        levelUI.GameOverPanelOn();
     }
 
     private void OnTriggerEnter(Collider other)

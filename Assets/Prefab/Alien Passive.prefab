@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323af7163b04f854aa86e321ee2592dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sound: {fileID: 5187416719359368041, guid: a5676247fa09a12469aa4e7cdecbc09e, type: 3}
   enemyProfile: {fileID: 11400000, guid: 3fa7030844732144895006bb0b674287, type: 2}
   enemyAnimator: {fileID: 8073873874664201579}
   enemyDamage: 20

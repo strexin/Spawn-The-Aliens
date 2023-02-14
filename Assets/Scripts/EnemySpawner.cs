@@ -28,24 +28,24 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeSpawn = Time.time;
-        increaseTimeSpawn = Time.time;
+        timeSpawn = Time.timeSinceLevelLoad;
+        increaseTimeSpawn = Time.timeSinceLevelLoad;
         alertUI.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= increaseTimeSpawn && cooldownSpawn > 4)
+        if (Time.timeSinceLevelLoad >= increaseTimeSpawn && cooldownSpawn > 4)
         {
             StartCoroutine(EnemyIncreasing());
-            increaseTimeSpawn = Time.time + increaseSpawnTimer;
+            increaseTimeSpawn = Time.timeSinceLevelLoad + increaseSpawnTimer;
             cooldownSpawn -= 1.0f;
         }
 
-        if (timeSpawn <= Time.time)
+        if (timeSpawn <= Time.timeSinceLevelLoad)
         {
-            timeSpawn = Time.time + cooldownSpawn;
+            timeSpawn = Time.timeSinceLevelLoad + cooldownSpawn;
             enemyPool.Get();
         }
     }

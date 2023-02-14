@@ -11,10 +11,12 @@ public class MainLevelUI : MonoBehaviour
     [Header("UI Components")]
     [SerializeField] private Slider slider;
     [SerializeField] GameObject pausePanel;
+    [SerializeField] GameObject gameOverPanel;
 
     private void Start()
     {
         pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
     }
 
     public void SetMaxHealth(float max)
@@ -26,6 +28,11 @@ public class MainLevelUI : MonoBehaviour
     public void CurrentHealth(float health)
     {
         slider.value = health;
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(1);
     }
 
     public void PausePanelOn()
@@ -40,6 +47,12 @@ public class MainLevelUI : MonoBehaviour
         player.isPausing = false;
         Time.timeScale = 1.0f;
         pausePanel.SetActive(false);
+    }
+
+    public void GameOverPanelOn()
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0.2f;
     }
 
     public void ExitGame()
