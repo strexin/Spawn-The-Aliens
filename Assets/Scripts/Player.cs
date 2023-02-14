@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class Player : MonoBehaviour
 
     [Header("References")]
     [SerializeField] Weapon weapon;
+    [SerializeField] MainLevelUI levelUI;
 
     [Header("Player Attributes")]
     public float playerMaxHealth;
@@ -32,9 +35,13 @@ public class Player : MonoBehaviour
 
     [Header("Status")]
     bool isMoving;
-    bool isAlive;
+    [HideInInspector] public bool isAlive;
+    [HideInInspector] public bool isPausing;
     bool weapon1Active;
     bool weapon2Active;
+
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI bulletDisplay;
 
     [Header("Effects")]
     [SerializeField] private GameObject muzzleFlash;
@@ -49,19 +56,29 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerCurrentHealth = playerMaxHealth;
-        shootTimer = 0;
+        shootTimer = Time.time;
         isMoving = false;
         isAlive = true;
+        isPausing = false;
         weapon1Active = true;
         weapon2Active = false;
+
+        Time.timeScale = 1.0f;
+
+        levelUI.SetMaxHealth(playerMaxHealth);
+        levelUI.CurrentHealth(playerCurrentHealth);
+        bulletDisplay.SetText(Mathf.Infinity.ToString());
     }
 
     // Update is called once per frame
     void Update()
     {
-        InputHandler();
-        PlayerLookAt();
-        Shoot();
+        if (isAlive && !isPausing)
+        {
+            InputHandler();
+            PlayerLookAt();
+            Shoot();
+        }         
     }
 
     private void FixedUpdate()
@@ -74,7 +91,7 @@ public class Player : MonoBehaviour
         horizontalMoveInput = Input.GetAxis("Horizontal");
         verticalMoveInput = Input.GetAxis("Vertical");
 
-        if (horizontalMoveInput != 0 || verticalMoveInput != 0 && !isMoving && isAlive)
+        if (horizontalMoveInput != 0 || verticalMoveInput != 0 && !isMoving)
         {
             isMoving = true;
         }
@@ -84,13 +101,24 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && weapon2Active)
         {
+            bulletDisplay.SetText(Mathf.Infinity.ToString());
             weapon1Active = true;
             weapon2Active = false;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) && weapon1Active)
         {
+            bulletDisplay.SetText(bulletLeft.ToString());
             weapon1Active = false;
             weapon2Active = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !isPausing)
+        {
+            levelUI.PausePanelOn();
+        } 
+        else if (Input.GetKeyDown(KeyCode.Escape) && isPausing)
+        {
+            levelUI.PausePanelOff();
         }
     }
 
@@ -111,6 +139,7 @@ public class Player : MonoBehaviour
                 shootTimer = Time.time + weapon2Cooldown;
                 bulletLeft -= 1;
                 weapon.SpreadMode();
+                bulletDisplay.SetText(bulletLeft.ToString());
             }           
         }
         else
@@ -150,6 +179,8 @@ public class Player : MonoBehaviour
     public void GetHit(float damage)
     {
         playerCurrentHealth -= damage;
+        levelUI.CurrentHealth(playerCurrentHealth);
+
         if (playerCurrentHealth <= 0)
         {
             Die();
@@ -159,5 +190,17 @@ public class Player : MonoBehaviour
     void Die()
     {
         isAlive = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Collectible"))
+        {
+            levelUI.CurrentHealth(playerCurrentHealth);
+            if (weapon2Active)
+            {
+                bulletDisplay.SetText(bulletLeft.ToString());
+            }
+        }
     }
 }

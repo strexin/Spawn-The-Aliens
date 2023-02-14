@@ -9,10 +9,13 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Object Reference")]
     [SerializeField] Enemy[] enemy;
+    [SerializeField] GameObject alertUI;
 
     [Header("Timer")]
     [SerializeField] float cooldownSpawn;
+    [SerializeField] float increaseSpawnTimer;
     float timeSpawn;
+    float increaseTimeSpawn;
 
     [Header("Spawn Position")]
     [SerializeField] float maxPos;
@@ -25,12 +28,21 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeSpawn = 0;
+        timeSpawn = Time.time;
+        increaseTimeSpawn = Time.time;
+        alertUI.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.time >= increaseTimeSpawn && cooldownSpawn > 4)
+        {
+            StartCoroutine(EnemyIncreasing());
+            increaseTimeSpawn = Time.time + increaseSpawnTimer;
+            cooldownSpawn -= 1.0f;
+        }
+
         if (timeSpawn <= Time.time)
         {
             timeSpawn = Time.time + cooldownSpawn;
@@ -69,5 +81,14 @@ public class EnemySpawner : MonoBehaviour
         float randomPos = Random.Range(-maxPos, maxPos);
 
         return new Vector3(randomPos, 0.0f, randomPos);
+    }
+
+    IEnumerator EnemyIncreasing()
+    {
+        alertUI.SetActive(true);
+
+        yield return new WaitForSeconds(3.0f);
+
+        alertUI.SetActive(false);
     }
 }

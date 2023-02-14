@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
         enemyCurrentHealth = enemyProfile.enemyMaxHealth;
         enemyDamage = enemyProfile.enemyAttack;
         GetComponent<BoxCollider>().enabled = true;
-        randomDestination = new Vector3(Random.Range(-20, 20), 0.0f, Random.Range(-20, 20));
+        //randomDestination = new Vector3(Random.Range(-20, 20), 0.0f, Random.Range(-20, 20));
         isMoving = true;
         isAlive = true;
         isAttacking = false;
@@ -46,6 +46,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        randomDestination = new Vector3(Random.Range(-20, 20), 0.0f, Random.Range(-20, 20));
+
         if (isMoving && isAlive && !isAttacking)
         {
             if (activeEnemy)

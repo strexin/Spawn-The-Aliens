@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 1685907529}
+  levelUI: {fileID: 0}
   playerMaxHealth: 200
   playerCurrentHealth: 0
   playerMoveSpeed: 5
@@ -138,6 +139,7 @@ MonoBehaviour:
   weapon1Cooldown: 0.1
   weapon2Cooldown: 0.6
   bulletLeft: 15
+  bulletDisplay: {fileID: 0}
   muzzleFlash: {fileID: 1575307588780274926}
 --- !u!114 &1685907529
 MonoBehaviour:
@@ -152,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzlePoint: {fileID: 1574126848690732932}
-  weapon1Damage: 8
+  weapon1Damage: 4
   weapon1MaxRange: 30
   weapon2Damage: 10
   weapon2MaxRange: 15

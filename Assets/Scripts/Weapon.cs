@@ -78,7 +78,6 @@ public class Weapon : MonoBehaviour
         for (int i = 1; i <= maxBarrels; i++)
         {
             Ray ray = new Ray(muzzlePoint.position, transform.TransformDirection(new Vector3(RandomBarrelPos(), 0.0f, 1.0f)));
-            Debug.Log(ray);
             RaycastHit hit;
             muzzleFlash.SetActive(true);
 
