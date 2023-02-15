@@ -36,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeSinceLevelLoad >= increaseTimeSpawn && cooldownSpawn > 4)
+        if (Time.timeSinceLevelLoad >= increaseTimeSpawn && cooldownSpawn > 3)
         {
             StartCoroutine(EnemyIncreasing());
             increaseTimeSpawn = Time.timeSinceLevelLoad + increaseSpawnTimer;

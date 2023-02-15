@@ -93,14 +93,8 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Walking
-    clip: {fileID: 8300000, guid: d189547c0a8f7004a95546c05acf11c5, type: 3}
-    volume: 0.8
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
   - name: Player Damaged
-    clip: {fileID: 8300000, guid: d189547c0a8f7004a95546c05acf11c5, type: 3}
+    clip: {fileID: 8300000, guid: d7843ad844fecc744a1df5b4b9a3dfc2, type: 3}
     volume: 0.8
     pitch: 1
     loop: 0

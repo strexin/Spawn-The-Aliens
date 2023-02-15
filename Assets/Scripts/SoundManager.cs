@@ -10,18 +10,6 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager instance;
 
-    private void OnEnable()
-    {       
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            PlaySound("Theme");
-        }
-        else
-        {
-            StopSound("Theme");
-        }        
-    }
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,6 +35,11 @@ public class SoundManager : MonoBehaviour
 
             sound.source.loop = sound.loop;
         }
+    }
+
+    private void Start()
+    {
+        PlaySound("Theme");
     }
 
     public void PlaySound(string name)

@@ -50,14 +50,14 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cam = Camera.main;
-        sound = FindObjectOfType<SoundManager>();
+        sound = SoundManager.instance;
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //sound.StopSound("Theme");
-
+        sound.StopSound("Theme");
         playerCurrentHealth = playerMaxHealth;
         shootTimer = Time.time;
         isMoving = false;
@@ -188,6 +188,7 @@ public class Player : MonoBehaviour
     {
         playerCurrentHealth -= damage;
         levelUI.CurrentHealth(playerCurrentHealth);
+        sound.PlaySound("Player Damaged");
 
         if (playerCurrentHealth <= 0)
         {

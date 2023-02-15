@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23117022540804038}
   - component: {fileID: 135030472764333120}
   - component: {fileID: 7101334070663731383}
+  - component: {fileID: -1857692660788109421}
   m_Layer: 2
   m_Name: Bullet
   m_TagString: Collectible
@@ -113,7 +114,26 @@ MonoBehaviour:
   health: {fileID: 1932252988361774, guid: 59c7078d344dfe94f97e849fe4f0dce0, type: 3}
   bullet: {fileID: 1825870777587358}
   sword: {fileID: 1037343330875508, guid: eb20313e46ca14d4ab638ede406702d4, type: 3}
-  sound: {fileID: 5187416719359368041, guid: a5676247fa09a12469aa4e7cdecbc09e, type: 3}
   addHealth: 10
   addAttack: 2
   addBullet: 5
+--- !u!95 &-1857692660788109421
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825870777587358}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c5ae706f6ccdb5149b3bd0f70f1cc4ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

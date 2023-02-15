@@ -20,6 +20,11 @@ public class Collectible : MonoBehaviour
         sound = FindObjectOfType<SoundManager>();
     }
 
+    private void OnEnable()
+    {
+        Destroy(gameObject, 10.0f);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

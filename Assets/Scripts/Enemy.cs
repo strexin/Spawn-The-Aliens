@@ -40,7 +40,6 @@ public class Enemy : MonoBehaviour
         enemyCurrentHealth = enemyProfile.enemyMaxHealth;
         enemyDamage = enemyProfile.enemyAttack;
         GetComponent<BoxCollider>().enabled = true;
-        //randomDestination = new Vector3(Random.Range(-20, 20), 0.0f, Random.Range(-20, 20));
         isMoving = true;
         isAlive = true;
         isAttacking = false;
@@ -87,7 +86,6 @@ public class Enemy : MonoBehaviour
 
     public void GetHit(float damage)
     {
-        Debug.Log("Hit");
         enemyCurrentHealth -= damage;
 
         if (enemyCurrentHealth <= 0)
