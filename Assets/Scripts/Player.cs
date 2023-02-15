@@ -51,7 +51,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         cam = Camera.main;
         sound = SoundManager.instance;
-
     }
 
     // Start is called before the first frame update
@@ -60,6 +59,7 @@ public class Player : MonoBehaviour
         sound.StopSound("Theme");
         playerCurrentHealth = playerMaxHealth;
         shootTimer = Time.time;
+
         isMoving = false;
         isAlive = true;
         isPausing = false;
